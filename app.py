@@ -20,10 +20,10 @@ def hello(): # Name of the method
     rv = cur.fetchall() #Retreive all rows returend by the SQL statment
     return str(rv)      #Return the data in a string format
 
-@app.route("/add")
-def add():
+@app.route("/add/<username>/<email>")
+def add(username, email):
 	cur = mysql.connection.cursor()
-	cur.execute('''Insert into students (studentName, email) values ("Dylan Kieran","dylankieran@hotmail.com"); commit; ''')
+	cur.execute('''Insert into students (studentName, email) values ('%s','%s'); commit; ''' %(username, email))
 	return 'Added new student x'
 
 @app.route("/update")
